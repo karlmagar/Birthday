@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#dff4ff">
+  <title>A Birthday Bot for You</title>
+  <meta name="description" content="A tiny birthday robot with a gift made of words.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='10' y='14' width='44' height='38' rx='14' fill='%232778ff'/%3E%3Crect x='16' y='20' width='32' height='23' rx='9' fill='%23102342'/%3E%3Ccircle cx='26' cy='31' r='3' fill='%23ffd25a'/%3E%3Ccircle cx='38' cy='31' r='3' fill='%23ffd25a'/%3E%3Cpath d='M27 38q5 4 10 0' fill='none' stroke='%23ffd25a' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M32 14V8' stroke='%23102342' stroke-width='3'/%3E%3Ccircle cx='32' cy='6' r='4' fill='%23ffd25a'/%3E%3C/svg%3E">
+  <style>
+    :root { --navy:#102342; --blue:#2778ff; --sky:#70c7ff; --yellow:#ffd25a; --cream:#eaf8ff; --paper:#fff; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; min-height:100%; }
+    body { font-family:ui-rounded,"SF Pro Rounded","Avenir Next",system-ui,sans-serif; color:var(--navy); background:#b4ddff; display:grid; place-items:center; }
+    .phone { position:relative; width:min(100vw,430px); min-height:100dvh; overflow:hidden; background:
+      radial-gradient(circle at 20% 12%,rgba(255,255,255,.9) 0 5%,transparent 5.5%),
+      radial-gradient(circle at 84% 30%,rgba(255,210,90,.5) 0 4%,transparent 4.5%),
+      linear-gradient(155deg,#f7fdff 0%,#dff4ff 58%,#b9dcff 100%); display:flex; flex-direction:column; align-items:center; padding:max(18px,env(safe-area-inset-top)) 22px max(24px,env(safe-area-inset-bottom)); isolation:isolate; }
+    .phone:before,.phone:after { content:""; position:absolute; border-radius:999px; z-index:-1; filter:blur(1px); }
+    .phone:before { width:240px;height:240px;background:#5f9fff;left:-145px;bottom:6%;transform:rotate(20deg); }
+    .phone:after { width:180px;height:180px;background:#7dd8ff;right:-100px;top:18%; }
+    header { width:100%; display:flex; align-items:center; justify-content:space-between; }
+    .brand { display:flex; align-items:center; gap:9px; font-weight:900; letter-spacing:-.03em; font-size:1.05rem; }
+    .brand-dot { width:13px;height:13px;border:3px solid var(--navy);border-radius:5px;background:var(--blue);transform:rotate(-10deg); }
+    .counter { font-size:.78rem; font-weight:800; background:rgba(255,255,255,.72); padding:7px 11px;border-radius:999px;border:1.5px solid rgba(21,37,63,.1); }
+    main { flex:1; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:12px 0 10px; }
+    .bubble { width:min(100%,350px); min-height:116px; display:grid; place-items:center; text-align:center; padding:23px 27px 27px; background:var(--paper); border:3px solid var(--navy); border-radius:27px; box-shadow:7px 8px 0 var(--navy); position:relative; z-index:3; transform-origin:50% 100%; }
+    .bubble:before { content:""; position:absolute; bottom:-18px; left:50%; width:28px; height:28px; background:var(--paper); border-right:3px solid var(--navy); border-bottom:3px solid var(--navy); transform:translateX(-50%) rotate(45deg); }
+    .phrase { margin:0; font-size:clamp(1.25rem,5vw,1.65rem); line-height:1.18; font-weight:900; letter-spacing:-.035em; }
+    .bubble.pop { animation:pop .48s cubic-bezier(.2,.9,.3,1.3); }
+    .robot-wrap { position:relative; margin-top:22px; width:220px; height:295px; display:grid; place-items:center; animation:float 3.3s ease-in-out infinite; }
+    .robot-wrap:after { content:""; position:absolute; width:135px; height:18px; border-radius:50%; background:rgba(21,37,63,.18); bottom:2px; filter:blur(7px); animation:shadow 3.3s ease-in-out infinite; z-index:-1; }
+    .robot { width:100%;height:100%;object-fit:cover;object-position:center;border-radius:110px 110px 72px 72px;mix-blend-mode:multiply;filter:saturate(1.08) contrast(1.02); }
+    .spark { position:absolute; color:var(--blue); font-size:1.55rem; font-weight:900; animation:twinkle 1.8s ease-in-out infinite; }
+    .s1{left:-13px;top:60px}.s2{right:-15px;top:105px;color:#e4a400;animation-delay:.7s}.s3{right:8px;bottom:28px;font-size:1rem;animation-delay:1.2s}
+    .controls { width:100%; display:flex; flex-direction:column; align-items:center; gap:10px; }
+    button { -webkit-tap-highlight-color:transparent; width:min(100%,350px); min-height:58px; border:3px solid var(--navy); border-radius:18px; background:var(--blue); color:white; box-shadow:0 7px 0 var(--navy); font:900 1rem/1 ui-rounded,system-ui,sans-serif; letter-spacing:.01em; cursor:pointer; transition:transform .14s,box-shadow .14s,background .2s; }
+    button:hover { background:#1268f5; transform:translateY(-2px); box-shadow:0 9px 0 var(--navy); }
+    button:active { transform:translateY(6px); box-shadow:0 1px 0 var(--navy); }
+    button:focus-visible { outline:4px solid white; outline-offset:3px; }
+    .hint { font-size:.75rem; font-weight:700; opacity:.58; margin:6px 0 0; }
+    @keyframes float { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-10px) rotate(1deg)} }
+    @keyframes shadow { 0%,100%{transform:scaleX(1);opacity:.7} 50%{transform:scaleX(.82);opacity:.4} }
+    @keyframes pop { 0%{transform:scale(.86) rotate(-2deg);opacity:.2} 55%{transform:scale(1.04) rotate(1deg)} 100%{transform:scale(1);opacity:1} }
+    @keyframes twinkle { 0%,100%{transform:scale(.7) rotate(0);opacity:.35}50%{transform:scale(1.2) rotate(18deg);opacity:1} }
+    @media (min-width:431px) { body{padding:24px}.phone{min-height:min(850px,calc(100dvh - 48px));border:5px solid var(--navy);border-radius:42px;box-shadow:0 24px 70px rgba(21,37,63,.22)} }
+    @media (max-height:720px) { .robot-wrap{width:176px;height:235px;margin-top:12px}.bubble{min-height:96px;padding:17px 22px 21px}.phone{padding-top:14px}.hint{display:none} }
+    @media (prefers-reduced-motion:reduce) { *,*:before,*:after{animation:none!important;transition:none!important} }
+  </style>
+</head>
+<body>
+  <section class="phone" aria-label="Robo Says phrase generator">
+    <header><div class="brand"><span class="brand-dot"></span>Your Birthday Bot</div><div class="counter" id="counter">1 / 8</div></header>
+    <main>
+      <div class="bubble" id="bubble" role="status" aria-live="polite"><p class="phrase" id="phrase">Happy birthday! This little gift is just for you. 🎁</p></div>
+      <div class="robot-wrap" aria-hidden="true"><img class="robot" src="assets/robo.png" alt=""><i class="spark s1">✦</i><i class="spark s2">✦</i><i class="spark s3">✦</i></div>
+    </main>
+    <div class="controls"><button id="next" type="button">Open another wish ✨</button><p class="hint">A tiny gift, one message at a time</p></div>
+  </section>
+  <script>
+    // Replace or add your own phrases in this list.
+    const phrases = [
+      "Happy birthday! This little gift is just for you. 🎁",
+      "May this year bring you your happiest surprises.",
+      "The world got brighter the day you arrived.",
+      "You deserve a day full of cake, laughter, and love.",
+      "Here’s to new memories and your best year yet!",
+      "Never forget how loved and appreciated you are.",
+      "Today, every little moment belongs to you.",
+      "Beep boop! Birthday wish successfully delivered. 💙"
+    ];
+    const phrase = document.querySelector('#phrase');
+    const bubble = document.querySelector('#bubble');
+    const counter = document.querySelector('#counter');
+    const button = document.querySelector('#next');
+    let current = 0;
+    function nextPhrase(){
+      let next;
+      do { next = Math.floor(Math.random() * phrases.length); } while (phrases.length > 1 && next === current);
+      current = next;
+      phrase.textContent = phrases[current];
+      counter.textContent = `${current + 1} / ${phrases.length}`;
+      bubble.classList.remove('pop'); void bubble.offsetWidth; bubble.classList.add('pop');
+      if (navigator.vibrate) navigator.vibrate(18);
+    }
+    button.addEventListener('click', nextPhrase);
+    document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); nextPhrase(); } });
+  </script>
+</body>
+</html>
