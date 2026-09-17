@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#dff4ff">
-  <title>A Birthday Bot for You</title>
+  <title>A Birthday Bot for Yas</title>
   <meta name="description" content="A tiny birthday robot with a gift made of words.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='10' y='14' width='44' height='38' rx='14' fill='%232778ff'/%3E%3Crect x='16' y='20' width='32' height='23' rx='9' fill='%23102342'/%3E%3Ccircle cx='26' cy='31' r='3' fill='%23ffd25a'/%3E%3Ccircle cx='38' cy='31' r='3' fill='%23ffd25a'/%3E%3Cpath d='M27 38q5 4 10 0' fill='none' stroke='%23ffd25a' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M32 14V8' stroke='%23102342' stroke-width='3'/%3E%3Ccircle cx='32' cy='6' r='4' fill='%23ffd25a'/%3E%3C/svg%3E">
   <style>
@@ -52,15 +52,56 @@
   <section class="phone" aria-label="Robo Says phrase generator">
     <header><div class="brand"><span class="brand-dot"></span>Happy Birthday Yasmine</div><div class="counter" id="counter">1 / 8</div></header>
     <main>
-      <div class="bubble" id="bubble" role="status" aria-live="polite"><p class="phrase" id="phrase">Happy birthday! This little gift is just for you. 🎁</p></div>
+      <div class="bubble" id="bubble" role="status" aria-live="polite"><p class="phrase" id="phrase">Happy birthday! Rappele toi de nos petits moments. 🎁</p></div>
       <div class="robot-wrap" aria-hidden="true"><img class="robot" src="assets/robo.png" alt=""><i class="spark s1">✦</i><i class="spark s2">✦</i><i class="spark s3">✦</i></div>
     </main>
-    <div class="controls"><button id="next" type="button">Open another wish ✨</button><p class="hint">A tiny gift, one message at a time</p></div>
+    <div class="controls"><button id="next" type="button">Open another message ✨</button><p class="hint">A tiny gift, one message at a time</p></div>
   </section>
   <script>
     // Replace or add your own phrases in this list.
     const phrases = [
-      ""
+      "I can't find Hersheys in Lausanne", 
+      "I miss my study partner",
+      "I miss cleaning my car aftter we ate in it",
+      "Let's go to hammana again",
+      "Will we randomly meet at cafe du port again?",
+      "J aime tes cheveux",
+      "Karl pue btw",
+      "Ouvre moi la porte en bas pls",
+      "Concierge puis macdo?",
+      "Je t'apprecie vraimant",
+      "'Sorry Je dormais'",
+      "Yas...",
+      "Quand je te vois?",
+      "fun fact: J ai cherche des trucs pour lola mais y en a pas",
+      "Sorry je suis en retard",
+      "Till there was you - the beatles",
+      "pink promise on se revoit?",
+      "Ya pas de tics tacs pour ma gueule ici",
+      "Tu sais je courais pour ne pas te faire attendre",
+      "When i knew we were hanging out i smiled the whole week",
+      "I miss you",
+      "Caca",
+      "Je t emmene un slime d ici?",
+      "odbout al nass",
+      "who s gonna kiss the brown headed girls",
+      "When i come back on prendra entrecote",
+      "Jpp j'ai comite",
+      "How are your need ohs?",
+      "remember les croques notes",
+      "Karl Pls comment on derive ca",
+      "Call ce soir?",
+      "I miss buying you shit",
+      "Your afterprom was fun",
+      "Im sorry if you re mad at me",
+      "I miss you #2",
+      "On est pas alle shopping pour mes habits ;(",
+      "Smile im coming back soon :)",
+      "on passera l ete ensemble dw",
+      "Dit hi a lola pour moi",
+      "Dit hi a ton pere pour moi",
+      "Call moi raconte moi ta journee",
+      "Les peluches que je t ai donnees sont encore vivantes?"
     ];
     const phrase = document.querySelector('#phrase');
     const bubble = document.querySelector('#bubble');
