@@ -108,15 +108,17 @@
     const counter = document.querySelector('#counter');
     const button = document.querySelector('#next');
     let current = 0;
-    function nextPhrase(){
-      let next;
-      do { next = Math.floor(Math.random() * phrases.length); } while (phrases.length > 1 && next === current);
-      current = next;
-      phrase.textContent = phrases[current];
-      counter.textContent = `${current + 1} / ${phrases.length}`;
-      bubble.classList.remove('pop'); void bubble.offsetWidth; bubble.classList.add('pop');
-      if (navigator.vibrate) navigator.vibrate(18);
-    }
+  function nextPhrase() {
+  current = (current + 1) % phrases.length;
+  phrase.textContent = phrases[current];
+  counter.textContent = `${current + 1} / ${phrases.length}`;
+
+  bubble.classList.remove('pop');
+  void bubble.offsetWidth;
+  bubble.classList.add('pop');
+
+  if (navigator.vibrate) navigator.vibrate(18);
+}
     button.addEventListener('click', nextPhrase);
     document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); nextPhrase(); } });
   </script>
